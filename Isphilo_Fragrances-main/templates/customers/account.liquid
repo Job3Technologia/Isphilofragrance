@@ -1,0 +1,112 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Customer Account Template
+{% endcomment %}
+
+<section class="section account-section">
+    <div class="container">
+        <div class="account-header reveal">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <p class="section-subtitle">Welcome back,</p>
+                    <h1 class="account-title">{{ customer.first_name }} {{ customer.last_name }}</h1>
+                    <div class="section-divider" style="margin-left: 0;"></div>
+                </div>
+                <a href="{{ routes.account_logout_url }}" class="btn btn-outline" style="border-radius: 50px;">Logout</a>
+            </div>
+        </div>
+
+        <div class="account-grid reveal">
+            <aside class="account-sidebar">
+                <div class="sidebar-card">
+                    <h3>Account Details</h3>
+                    <p><strong>Member Since:</strong> {{ customer.created_at | date: "%B %Y" }}</p>
+                    <p><strong>Email:</strong> {{ customer.email }}</p>
+                    <p><strong>Primary Address:</strong></p>
+                    {% if customer.default_address %}
+                        <div class="address-box">
+                            {{ customer.default_address | format_address }}
+                        </div>
+                    {% else %}
+                        <p>No default address saved.</p>
+                    {% endif %}
+                    <div class="sidebar-links" style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="{{ routes.account_addresses_url }}" class="link-btn">Manage Addresses</a>
+                        <a href="/pages/fragrance-guide" class="link-btn">View Fragrance Guide</a>
+                        <a href="/pages/tracking" class="link-btn">Track My Orders</a>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="account-main">
+                <div class="order-history-card">
+                    <h3>Order History</h3>
+                    {% paginate customer.orders by 10 %}
+                        {% if customer.orders.size > 0 %}
+                            <div class="order-table-container">
+                                <table class="order-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for order in customer.orders %}
+                                            <tr>
+                                                <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                                                <td>{{ order.created_at | date: "%b %d, %Y" }}</td>
+                                                <td><span class="status-badge status-{{ order.fulfillment_status }}">{{ order.fulfillment_status_label }}</span></td>
+                                                <td>{{ order.total_price | money }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% if paginate.pages > 1 %}
+                                <div class="pagination">
+                                    {{ paginate | default_pagination }}
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="empty-orders">
+                                <i class="fas fa-shopping-bag" style="font-size: 40px; color: var(--gray-light); margin-bottom: 20px;"></i>
+                                <p>You haven't placed any orders yet.</p>
+                                <a href="{{ routes.all_products_collection_url }}" class="btn" style="margin-top: 20px;">Start Shopping</a>
+                            </div>
+                        {% endif %}
+                    {% endpaginate %}
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+
+<style>
+    .account-section { padding: 120px 0 60px; }
+    .account-title { font-size: 2.5rem; }
+    .account-grid { display: grid; grid-template-columns: 300px 1fr; gap: 40px; margin-top: 50px; }
+    
+    .sidebar-card, .order-history-card { background: var(--off-white); padding: 30px; border-radius: 20px; border: 1px solid var(--gray-light); }
+    .sidebar-card h3, .order-history-card h3 { font-size: 14px; margin-bottom: 20px; color: var(--primary-red); letter-spacing: 2px; }
+    .sidebar-card p { font-size: 14px; margin-bottom: 10px; opacity: 0.8; }
+    .address-box { margin: 15px 0; font-size: 13px; line-height: 1.6; }
+    .link-btn { font-size: 11px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--primary-red); }
+
+    .order-table-container { overflow-x: auto; }
+    .order-table { width: 100%; border-collapse: collapse; }
+    .order-table th, .order-table td { text-align: left; padding: 15px; border-bottom: 1px solid var(--gray-light); font-size: 13px; }
+    .order-table th { font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-dark); }
+    .order-table td a { color: var(--primary-red); font-weight: 700; text-decoration: none; }
+    
+    .status-badge { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .status-fulfilled { background: #e8f5e9; color: #1b5e20; }
+    .status-unfulfilled { background: #fff3e0; color: #e65100; }
+    
+    .empty-orders { text-align: center; padding: 40px 0; }
+    
+    @media (max-width: 992px) {
+        .account-grid { grid-template-columns: 1fr; }
+    }
+</style>

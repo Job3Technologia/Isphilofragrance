@@ -1,0 +1,30 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Policy Page Template
+{% endcomment %}
+
+<section class="section policy-header">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-subtitle">{{ shop.name }} Legal</p>
+            <h1 class="section-title">{{ page.title }}</h1>
+            <div class="section-divider"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section policy-content">
+    <div class="container">
+        <div class="policy-wrapper reveal">
+            {{ page.content }}
+        </div>
+    </div>
+</section>
+
+<style>
+    .policy-header { background: var(--off-white); padding: 100px 0 60px; text-align: center; }
+    .policy-wrapper { max-width: 800px; margin: 0 auto; font-size: 1rem; line-height: 1.8; opacity: 0.8; }
+    .policy-wrapper h2 { font-size: 1.5rem; margin: 40px 0 20px; color: var(--primary-red); }
+    .policy-wrapper p { margin-bottom: 20px; }
+    .policy-wrapper ul { margin-bottom: 20px; padding-left: 20px; }
+    .policy-wrapper li { margin-bottom: 10px; list-style: disc; }
+</style>

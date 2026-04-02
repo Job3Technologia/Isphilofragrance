@@ -1,0 +1,102 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Announcement Bar Section
+{% endcomment %}
+
+{%- if section.settings.show_announcement -%}
+  <div class="announcement-bar" style="background: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+    <div class="container">
+      {%- if section.settings.link != blank -%}
+        <a href="{{ section.settings.link }}" class="announcement-link">
+      {%- endif -%}
+          <div class="announcement-content">
+            {%- if section.settings.icon != 'none' -%}
+              <i class="fas {{ section.settings.icon }}" style="margin-right: 8px;"></i>
+            {%- endif -%}
+            <span>{{ section.settings.text }}</span>
+          </div>
+      {%- if section.settings.link != blank -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+<style>
+  .announcement-bar {
+    text-align: center;
+    padding: 8px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1002;
+    text-transform: uppercase;
+  }
+  .announcement-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+  .announcement-link:hover {
+    opacity: 0.8;
+  }
+  .announcement-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "DELIVERIES AVAILABLE ALL OVER SOUTH AFRICA & WORLDWIDE"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "Icon",
+      "default": "fa-truck",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fa-truck", "label": "Truck" },
+        { "value": "fa-gift", "label": "Gift" },
+        { "value": "fa-star", "label": "Star" },
+        { "value": "fa-percentage", "label": "Tag" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,70 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Fragrance Guide Template
+{% endcomment %}
+
+<section class="section guide-header">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-subtitle">Education & Artistry</p>
+            <h1 class="section-title">The Isphilo Fragrance Guide</h1>
+            <div class="section-divider"></div>
+            <p class="guide-intro">Understanding the nuances of scent is the first step to finding your signature fragrance. Let us guide you through the art of perfumery.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section guide-content">
+    <div class="container">
+        <div class="guide-grid">
+            <div class="guide-item reveal">
+                <div class="guide-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Fragrance Notes</h3>
+                <p>Every Isphilo scent is composed of three layers: Top, Heart, and Base notes. The <strong>Top notes</strong> are what you smell first, <strong>Heart notes</strong> form the core, and <strong>Base notes</strong> provide the lasting impression.</p>
+            </div>
+            
+            <div class="guide-item reveal">
+                <div class="guide-icon"><i class="fas fa-flask"></i></div>
+                <h3>Concentration</h3>
+                <p>We specialize in <strong>Eau de Parfum (EDP)</strong>, which contains a higher concentration of fragrance oils (15-20%) compared to Eau de Toilette. This ensures your scent lingers from morning until long after sunset.</p>
+            </div>
+            
+            <div class="guide-item reveal">
+                <div class="guide-icon"><i class="fas fa-wind"></i></div>
+                <h3>Scent Families</h3>
+                <p>From the fresh citrus of the coast to the deep, woody notes of the interior, our collection spans across Floral, Oriental, Woody, and Fresh families. Find the one that resonates with your personality.</p>
+            </div>
+
+            <div class="guide-item reveal">
+                <div class="guide-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3>Application Tips</h3>
+                <p>To maximize longevity, apply your fragrance to pulse points: wrists, neck, and behind the ears. Avoid rubbing your wrists together, as this can break down the delicate scent molecules.</p>
+            </div>
+        </div>
+        
+        <div class="guide-cta reveal text-center">
+            <h3>Ready to find your match?</h3>
+            <a href="{{ routes.all_products_collection_url }}" class="btn">Shop the Collection</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .guide-header { background: var(--off-white); padding: 120px 0 60px; text-align: center; }
+    .guide-intro { max-width: 700px; margin: 20px auto 0; opacity: 0.7; font-size: 1.1rem; line-height: 1.8; }
+    
+    .guide-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 60px; }
+    .guide-item { background: var(--pure-white); padding: 50px; border-radius: 20px; border: 1px solid var(--gray-light); transition: all 0.3s ease; }
+    .guide-item:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-color: var(--gold); }
+    
+    .guide-icon { font-size: 32px; color: var(--primary-red); margin-bottom: 25px; }
+    .guide-item h3 { font-size: 1.5rem; margin-bottom: 15px; font-family: 'Playfair Display', serif; }
+    .guide-item p { font-size: 1rem; opacity: 0.8; line-height: 1.7; }
+    
+    .guide-cta { margin-top: 80px; padding: 60px; background: var(--pure-black); color: white; border-radius: 30px; }
+    .guide-cta h3 { font-size: 2rem; margin-bottom: 30px; }
+    
+    @media (max-width: 768px) {
+        .guide-grid { grid-template-columns: 1fr; }
+        .guide-cta { padding: 40px 20px; }
+    }
+</style>

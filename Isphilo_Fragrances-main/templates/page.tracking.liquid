@@ -1,0 +1,94 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Order Tracking Page Template
+{% endcomment %}
+
+<section class="section tracking-header">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-subtitle">Track Your Order</p>
+            <h1 class="section-title">Where's Your Scent?</h1>
+            <div class="section-divider"></div>
+            <p class="tracking-intro">Your exquisite fragrance is on its way. Enter your tracking number below to follow its journey to your doorstep.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section tracking-section">
+    <div class="container">
+        <div class="tracking-grid">
+            <div class="tracking-form-container reveal-left">
+                <div class="tracking-form-card">
+                    <h3>Track Your Package</h3>
+                    <p>Enter your tracking number (e.g., PEX12345, ARM98765, PN123456)</p>
+                    <div class="form-group" style="margin-top: 25px;">
+                        <input type="text" id="trackingNumber" placeholder="Tracking Number" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); border-radius: 12px; font-size: 1.2rem; font-family: 'Montserrat', sans-serif;">
+                    </div>
+                    <button onclick="trackOrder()" class="btn" style="width: 100%; margin-top: 20px;">Track Order <i class="fas fa-truck-loading" style="margin-left: 10px;"></i></button>
+                    
+                    <div class="courier-logos" style="margin-top: 40px; display: flex; justify-content: center; gap: 30px; opacity: 0.5;">
+                        <span title="Pexi Courier">Pexi</span>
+                        <span title="Aramex South Africa">Aramex</span>
+                        <span title="PostNet">PostNet</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tracking-info reveal-right">
+                <div class="info-card">
+                    <h3>Tracking Support</h3>
+                    <p>If you experience any issues tracking your order, please don't hesitate to reach out to our Durban boutique directly.</p>
+                    
+                    <div class="support-links" style="margin-top: 30px;">
+                        <a href="https://wa.me/{{ settings.social_whatsapp_number }}" target="_blank" class="support-btn"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                        <a href="mailto:info@isphilofragrance.com" class="support-btn"><i class="fas fa-envelope"></i> Email Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function trackOrder() {
+        const trackingNum = document.getElementById('trackingNumber').value.trim();
+        if (!trackingNum) {
+            alert('Please enter a valid tracking number.');
+            return;
+        }
+
+        // Logic to determine courier based on prefix
+        let trackingUrl = '';
+        if (trackingNum.startsWith('PEX')) {
+            trackingUrl = `https://www.pexicourier.co.za/track?number=${trackingNum}`;
+        } else if (trackingNum.startsWith('ARM')) {
+            trackingUrl = `https://www.aramex.com/track/results?shipmentNumber=${trackingNum}`;
+        } else if (trackingNum.startsWith('PN')) {
+            trackingUrl = `https://www.postnet.co.za/track-my-parcel?trackingNumber=${trackingNum}`;
+        } else {
+            // Default to a general search if prefix is unknown
+            trackingUrl = `https://www.google.com/search?q=track+parcel+${trackingNum}`;
+        }
+
+        window.open(trackingUrl, '_blank');
+    }
+</script>
+
+<style>
+    .tracking-header { background: var(--off-white); padding: 120px 0 60px; text-align: center; }
+    .tracking-intro { max-width: 600px; margin: 20px auto 0; opacity: 0.7; font-size: 1.1rem; line-height: 1.8; }
+    
+    .tracking-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; margin-top: 60px; align-items: start; }
+    
+    .tracking-form-card, .info-card { background: var(--pure-white); padding: 50px; border-radius: 20px; border: 1px solid var(--gray-light); box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+    
+    .tracking-form-card h3, .info-card h3 { font-size: 1.4rem; margin-bottom: 15px; font-family: 'Playfair Display', serif; }
+    .tracking-form-card p, .info-card p { opacity: 0.7; font-size: 1rem; line-height: 1.6; }
+    
+    .support-btn { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 14px; font-weight: 700; color: var(--primary-red); text-decoration: none; padding: 15px; border: 1px solid var(--gray-light); border-radius: 12px; transition: all 0.3s ease; }
+    .support-btn:hover { background: var(--off-white); transform: translateX(10px); }
+    
+    @media (max-width: 992px) {
+        .tracking-grid { grid-template-columns: 1fr; gap: 40px; }
+        .tracking-form-card, .info-card { padding: 30px; }
+    }
+</style>

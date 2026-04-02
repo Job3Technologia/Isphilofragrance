@@ -1,0 +1,92 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Why Choose Us Section
+{% endcomment %}
+
+<section class="section why-us blurred-bg-section dark-overlay" 
+         style="background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');" 
+         role="img" 
+         aria-label="Why Choose Us Background">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-subtitle" style="color: var(--primary-red);">{{ section.settings.subtitle }}</p>
+            <h2 class="section-title" style="color: var(--pure-white);">{{ section.settings.title }}</h2>
+            <div class="section-divider" style="background: var(--primary-red);"></div>
+        </div>
+        
+        <div class="why-grid">
+            {% for block in section.blocks %}
+                <div class="why-item reveal">
+                    <h3>{{ block.settings.title }}</h3>
+                    <p>{{ block.settings.text }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+    .why-item { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
+    .why-item:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-10px); border-color: var(--primary-red); }
+    .why-item h3 { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 20px; letter-spacing: 2px; }
+    .why-item p { font-size: 14px; color: var(--pure-white); opacity: 0.8; line-height: 1.8; }
+    
+    @media (max-width: 992px) {
+        .why-grid { grid-template-columns: 1fr; }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Why Choose Us",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "The Isphilo Difference"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Why Choose Our Fragrances?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Artisanal Quality"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Every bottle is a masterpiece of fragrance engineering, blended with the highest concentration of premium oils."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Choose Us",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Artisanal Quality", "text": "Every bottle is a masterpiece of fragrance engineering, blended with the highest concentration of premium oils for exceptional longevity." } },
+        { "type": "feature", "settings": { "title": "Ethically Sourced", "text": "We source our ingredients responsibly, supporting both local KZN suppliers and sustainable global growers." } },
+        { "type": "feature", "settings": { "title": "Global Standards", "text": "While we are local to Berea, our quality control meets international luxury standards, rivaling the world's most famous perfume houses." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

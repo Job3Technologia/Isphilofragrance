@@ -1,0 +1,115 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Login Template
+{% endcomment %}
+
+<section class="section auth-section">
+    <div class="container">
+        <div class="auth-grid">
+            <div class="auth-image reveal-left">
+                <img src="{{ 'Images/IMG-20260316-WA0032.jpg' | asset_url }}" alt="Login Background" loading="lazy">
+                <div class="auth-overlay">
+                    <h2>Welcome Back</h2>
+                    <p>Enter your details to access your Isphilo account and exclusive fragrance benefits.</p>
+                </div>
+            </div>
+            
+            <div class="auth-form-container reveal-right">
+                <div class="auth-header">
+                    <p class="section-subtitle">Sign In</p>
+                    <h1 class="auth-title">My Account</h1>
+                    <div class="section-divider" style="margin-left: 0;"></div>
+                </div>
+
+                {% form 'customer_login', class: 'auth-form' %}
+                    {{ form.errors | default_errors }}
+
+                    <div class="form-group">
+                        <label for="CustomerEmail">Email Address</label>
+                        <input type="email" name="customer[email]" id="CustomerEmail" placeholder="Email Address" required>
+                    </div>
+
+                    {% if form.password_needed %}
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="CustomerPassword">Password</label>
+                                <a href="#recover" id="RecoverPassword" class="forgot-link">Forgot?</a>
+                            </div>
+                            <input type="password" name="customer[password]" id="CustomerPassword" placeholder="Password" required>
+                        </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn" style="width: 100%;">Login <i class="fas fa-sign-in-alt" style="margin-left: 10px;"></i></button>
+
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="{{ routes.account_register_url }}">Sign up here</a></p>
+                    </div>
+                {% endform %}
+
+                {% comment %} Forgot Password Form {% endcomment %}
+                <div id="RecoverPasswordForm" style="display: none;">
+                    <div class="auth-header">
+                        <p class="section-subtitle">Password Recovery</p>
+                        <h1 class="auth-title">Reset Password</h1>
+                        <div class="section-divider" style="margin-left: 0;"></div>
+                        <p style="margin-top: 15px; opacity: 0.7;">We will send you an email to reset your password.</p>
+                    </div>
+
+                    {% form 'recover_customer_password' %}
+                        {{ form.errors | default_errors }}
+                        
+                        {% if form.posted_successfully? %}
+                            <p class="note success">Success! Please check your email.</p>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label for="RecoverEmail">Email Address</label>
+                            <input type="email" name="email" id="RecoverEmail" placeholder="Email Address" required>
+                        </div>
+
+                        <button type="submit" class="btn" style="width: 100%;">Send Reset Link</button>
+                        <a href="#" id="HideRecoverPassword" class="forgot-link" style="display: block; text-align: center; margin-top: 20px;">Cancel</a>
+                    {% endform %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .auth-section { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 60px; }
+    .auth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .auth-image { position: relative; height: 600px; border-radius: 20px; overflow: hidden; }
+    .auth-image img { width: 100%; height: 100%; object-fit: cover; }
+    .auth-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
+    .auth-overlay h2 { font-size: 32px; margin-bottom: 10px; }
+    .auth-overlay p { opacity: 0.8; font-size: 14px; }
+    
+    .auth-title { font-size: 2.5rem; margin-bottom: 20px; }
+    .auth-form { margin-top: 40px; }
+    .form-group { margin-bottom: 25px; }
+    .form-group label { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 10px; }
+    .form-group input { width: 100%; padding: 15px; border: 1px solid var(--gray-light); border-radius: 12px; font-family: 'Cormorant Garamond', serif; font-size: 1rem; }
+    .label-row { display: flex; justify-content: space-between; align-items: center; }
+    .forgot-link { font-size: 11px; text-decoration: none; color: var(--primary-red); font-weight: 700; text-transform: uppercase; }
+    
+    .auth-footer { margin-top: 30px; text-align: center; font-size: 14px; }
+    .auth-footer a { color: var(--primary-red); font-weight: 700; text-decoration: none; }
+    
+    @media (max-width: 992px) {
+        .auth-grid { grid-template-columns: 1fr; gap: 50px; }
+        .auth-image { height: 300px; }
+    }
+</style>
+
+<script>
+    document.getElementById('RecoverPassword').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('.auth-form').style.display = 'none';
+        document.getElementById('RecoverPasswordForm').style.display = 'block';
+    });
+    document.getElementById('HideRecoverPassword').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('.auth-form').style.display = 'block';
+        document.getElementById('RecoverPasswordForm').style.display = 'none';
+    });
+</script>

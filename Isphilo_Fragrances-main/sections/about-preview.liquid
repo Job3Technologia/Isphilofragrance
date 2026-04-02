@@ -1,0 +1,122 @@
+{% comment %}
+  ISPHILO FRAGRANCE - About Preview Section
+{% endcomment %}
+
+<section class="section about-preview">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-content reveal">
+                <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+                <h3 class="about-title">{{ section.settings.title }}</h3>
+                <div class="about-description">
+                    {{ section.settings.description }}
+                </div>
+                <div class="about-stats">
+                    {% for block in section.blocks %}
+                        {% if block.type == 'stat' %}
+                            <div class="stat-item">
+                                <div class="stat-number">{{ block.settings.number }}</div>
+                                <div class="stat-label">{{ block.settings.label }}</div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% if section.settings.button_label != blank %}
+                    <a href="{{ section.settings.button_url }}" class="btn">{{ section.settings.button_label }}</a>
+                {% endif %}
+            </div>
+            
+            {% if section.settings.image != blank %}
+            <div class="about-image reveal">
+                <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.title }}" loading="lazy">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<style>
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
+    .about-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 30px; }
+    .about-description { margin-bottom: 40px; opacity: 0.8; }
+    .about-stats { display: flex; gap: 40px; margin-bottom: 50px; }
+    .stat-number { font-size: 32px; font-weight: 700; color: var(--primary-red); font-family: 'Montserrat', sans-serif; }
+    .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; margin-top: 5px; }
+    .about-image img { width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+    
+    @media (max-width: 992px) {
+        .about-grid { grid-template-columns: 1fr; gap: 50px; }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "About Preview",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Our Heritage"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "A Legacy of Elegance"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Based in the vibrant heart of Durban, Isphilo Fragrances is a premier cosmetic brand specializing in a sophisticated range of fragrances for both men and women.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "2018"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Founded"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Preview",
+      "blocks": [
+        { "type": "stat", "settings": { "number": "2018", "label": "Founded" } },
+        { "type": "stat", "settings": { "number": "50+", "label": "Unique Blends" } },
+        { "type": "stat", "settings": { "number": "100%", "label": "Satisfaction" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

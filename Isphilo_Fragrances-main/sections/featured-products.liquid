@@ -1,0 +1,95 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Featured Products Section
+{% endcomment %}
+
+<section class="section blurred-bg-section light-overlay" 
+         style="background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');" 
+         role="img" 
+         aria-label="Featured Collection Background">
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+            <h2 class="section-title">{{ section.settings.title }}</h2>
+            <div class="section-divider"></div>
+        </div>
+        
+        <div class="product-grid featured">
+            {%- assign collection = collections[section.settings.collection] -%}
+            {%- for product in collection.products limit: section.settings.products_to_show -%}
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
+                        {%- if product.compare_at_price > product.price -%}
+                            <div class="product-badge">Sale</div>
+                        {%- endif -%}
+                        <div class="product-actions">
+                            <a href="{{ product.url }}" class="action-btn" title="View Details"><i class="fas fa-eye"></i></a>
+                            <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                                <button type="submit" class="action-btn" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-cat">{{ product.collections.first.title }}</div>
+                        <h3 class="product-name"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                        <div class="product-price">
+                            <span class="current-price">{{ product.price | money }}</span>
+                            {%- if product.compare_at_price > product.price -%}
+                                <span class="old-price">{{ product.compare_at_price | money }}</span>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            {%- endfor -%}
+        </div>
+        
+        <div class="text-center mt-5 pt-4 reveal">
+            <a href="{{ collection.url }}" class="btn btn-light">View All Products</a>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Curated Selection"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured Fragrances"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}

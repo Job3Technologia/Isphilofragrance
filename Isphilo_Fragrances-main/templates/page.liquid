@@ -1,0 +1,29 @@
+{% comment %}
+  ISPHILO FRAGRANCE - Custom Page Template
+{% endcomment %}
+
+<section class="section page-header" 
+         {% if page.image %}style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ page.image | image_url: width: 2000 }}');"{% endif %}>
+    <div class="container">
+        <div class="section-header reveal">
+            <p class="section-subtitle">{{ shop.name }}</p>
+            <h1 class="section-title" {% if page.image %}style="color: white;"{% endif %}>{{ page.title }}</h1>
+            <div class="section-divider"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section page-content">
+    <div class="container">
+        <div class="content-wrapper reveal">
+            {{ page.content }}
+        </div>
+    </div>
+</section>
+
+<style>
+    .page-header { background-color: var(--off-white); padding: 100px 0; background-size: cover; background-position: center; }
+    .content-wrapper { max-width: 900px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; opacity: 0.9; }
+    .content-wrapper h2, .content-wrapper h3 { margin: 40px 0 20px; color: var(--primary-red); }
+    .content-wrapper p { margin-bottom: 20px; }
+</style>
